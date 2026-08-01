@@ -18,4 +18,33 @@ public class Customer {
     private String email;
     @Column(name = "postal_code", nullable = false)
     private String postalCode;
+
+    protected Customer() {}
+
+    public Customer(String name, Integer age, String email, String postalCode) {
+        this.name = name;
+        this.age = age;
+        this.email = email;
+        this.postalCode = postalCode;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
 }
