@@ -2,6 +2,8 @@ package com.mickey.test.customer.service;
 
 import com.mickey.test.customer.dto.CreateCustomerRequest;
 import com.mickey.test.customer.dto.CustomerResponse;
+import com.mickey.test.customer.exception.CustomerNotFoundException;
+import com.mickey.test.customer.exception.DuplicateEmailException;
 import com.mickey.test.customer.model.Customer;
 
 import com.mickey.test.customer.repository.CustomerRepository;
@@ -29,7 +31,7 @@ public class CustomerService {
 
     public CustomerResponse createCustomer(CreateCustomerRequest request){
         if (repository.existsByEmail(request.email())){
-            throw new IllegalArgumentException("Email already exists!");
+            throw new DuplicateEmailException("Email already exists!");
         }
 
         Customer customer = new Customer(
@@ -46,7 +48,7 @@ public class CustomerService {
 
     public CustomerResponse getCustomerById(UUID id){
         Customer customer = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found!")
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found!")
                 );
 
         return toResponse(customer);
